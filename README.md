@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujwala Sri Lakshmi Prasanna | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #646cff;
+            --primary-hover: #535bf2;
+            --background: #0f172a;
+            --card-bg: #1e293b;
+            --text: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border: #334155;
+            --accent: #f43f5e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 100;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Sections */
+        section {
+            padding: 6rem 10%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        
+        .education {
+            margin-top: 2.5rem;
+        }
+        
+        .education-item {
+            margin-bottom: 1.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+        
+        .education-item h4 {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+        
+        .education-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .skill-card {
+            background-color: var(--card-bg);
+            padding: 1.8rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .skill-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .skill-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: var(--background);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            left: -8px;
+            top: 5px;
+        }
+        
+        .timeline-content {
+            background-color: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .timeline-content h4 {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: normal;
+            font-size: 0.95rem;
+        }
+        
+        .timeline-content ul {
+            padding-left: 1.2rem;
+        }
+        
+        .timeline-content ul li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Projects Section */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+        }
+        
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-header {
+            padding: 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .project-header h3 {
+            margin-bottom: 0.3rem;
+        }
+        
+        .project-body {
+            padding: 1.5rem;
+        }
+        
+        .project-body p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(100, 108, 255, 0.1);
+            color: var(--primary);
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            border: 1px solid var(--primary);
+            transition: all 0.2s ease;
+        }
+        
+        .project-link:hover {
+            background-color: rgba(100, 108, 255, 0.2);
+        }
+        
+        /* CPF Samples */
+        .cpf-samples {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .cpf-sample {
+            margin-bottom: 3rem;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+        
+        .cpf-sample h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .cpf-sample h3 a {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .cpf-sample p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        /* Certificate */
+        .certificate {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid var(--border);
+        }
+        
+        .certificate h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .certificate-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        
+        .certificate-link:hover {
+            background-color: rgba(100, 108, 255, 0.1);
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+        
+        .contact-link:hover {
+            background-color: rgba(100, 108, 255, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .contact-link i {
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .skills-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .timeline {
+                padding-left: 1rem;
+            }
+            
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section with Animated Clip -->
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-geometric-shape-17695-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h1>Welcome to My Portfolio</h1>
+            <p>Versatile professional with expertise in HR, Content Writing, Project Management & Media Analysis</p>
+            <a href="#about" class="cta-button">
+                <i class="fas fa-arrow-down"></i> Explore More
+            </a>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>PROFESSIONAL SUMMARY</h3>
+                <p>Versatile and driven professional with experience in Human Resources, Content Writing, Project Management and Media Analysis, combined with solid project coordination and digital skills. Proven ability to manage recruitment pipelines, deliver research-based content, and analyse media coverage. Eager to contribute to organisations that value communication, strategy, and results. I have completed Accenture's Project Management Job Simulation and am eager to contribute to organisational growth through my expertise.</p>
+                
+                <div class="education">
+                    <h3>EDUCATION</h3>
+                    <div class="education-item">
+                        <h4>MBA (Online Program)</h4>
+                        <p>Academy Europe Open University | Nov 2023 – Jan 2025</p>
+                    </div>
+                    <div class="education-item">
+                        <h4>Bachelor of Computer Applications (BCA)</h4>
+                        <p>Aditya Degree College for Women | Oct 2020 – Aug 2023</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-container">
+            <div class="skill-card">
+                <i class="fas fa-users-cog" style="color: #646cff;"></i>
+                <h3>Human Resource Management</h3>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-keyboard" style="color: #f43f5e;"></i>
+                <h3>Digital & SEO Content Writing</h3>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-search-plus" style="color: #10b981;"></i>
+                <h3>Media & Policy Research</h3>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-tags" style="color: #f59e0b;"></i>
+                <h3>Boolean Logic for Content Tagging</h3>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-blog" style="color: #8b5cf6;"></i>
+                <h3>Blogging</h3>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-file-word" style="color: #3b82f6;"></i>
+                <h3>MS Office, Google Workspace</h3>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-comments" style="color: #0ea5e9;"></i>
+                <h3>Communication & Documentation</h3>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-tasks" style="color: #ec4899;"></i>
+                <h3>Project Management</h3>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>HR Recruitment & Operations Associate</h3>
+                    <h4>BlackHardStone | Feb 2025 – Present</h4>
+                    <ul>
+                        <li>Led end-to-end recruitment processes: sourcing, interviewing, and onboarding.</li>
+                        <li>Optimised HR operations by improving workflows and ensuring compliance.</li>
+                        <li>Maintained employee records and performance data using internal tools.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Media Analyst</h3>
+                    <h4>Tagfact Services | Aug 2023 – Nov 2024</h4>
+                    <ul>
+                        <li>Conducted news and media monitoring for client industries.</li>
+                        <li>Applied Boolean logic and tagging techniques to improve content accuracy.</li>
+                        <li>Delivered internal reporting and media sentiment analysis.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Freelance Content Writer</h3>
+                    <h4>Paidwork | Jan 2022 – Feb 2023</h4>
+                    <ul>
+                        <li>Wrote SEO-focused and technical content across diverse sectors.</li>
+                        <li>Adapted content tone and voice for clients across B2B and B2C audiences.</li>
+                        <li>Delivered content consistently on deadline and according to brand guidelines.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-container">
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>GoFundMe</h3>
+                </div>
+                <div class="project-body">
+                    <p>Worked on tagging the week campaigns.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>IMDA</h3>
+                    <p>(Infocomm Media Development Authority)</p>
+                </div>
+                <div class="project-body">
+                    <p>Conducted comprehensive media analysis across digital platforms.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>CPF</h3>
+                    <p>(Central Provident Fund)</p>
+                </div>
+                <div class="project-body">
+                    <p>Developed comprehensive article summaries focusing on Singapore's CPF policies, regulations, and updates.</p>
+                    <a href="#cpf-sample" class="project-link">
+                        <i class="fas fa-external-link-alt"></i> View Samples
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CPF Work Sample -->
+        <div id="cpf-sample" class="cpf-samples">
+            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--primary);">CPF Work Samples</h3>
+            
+            <div class="cpf-sample">
+                <h3>
+                    <i class="fas fa-newspaper"></i>
+                    The Independent Singapore
+                    <a href="https://theindependent.sg/sg-man-earning-s4k-month-says-commuting-to-work-at-8am-and-return-home-at-10pm-while-being-responsive-24-7-makes-his-life-hopeless/" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </h3>
+                <p>The Independent Singapore reported that a Singaporean man expressed his frustrations on Reddit regarding the challenging nature of working life in the fast-paced tech industry. He shared feelings of burnout, describing a daily routine that involved commuting from 8am to 10pm, often being expected to be available 24/7, and spending weekends on additional tasks. Despite taking home around S$4,000 after CPF deductions—a salary he acknowledged as decent—he wondered if his complaints were justified. The post resonated with many Reddit users, who shared their own experiences of burnout in demanding jobs. Some argued that working 12 to 14 hours a day was not normal and emphasised that such a schedule could lead to significant fatigue. Many advised him to seek a position with more reasonable hours or consider taking a break, highlighting that the persistent overtime suggested a systemic issue within his company.</p>
+            </div>
+            
+            <div class="cpf-sample">
+                <h3>
+                    <i class="fas fa-podcast"></i>
+                    Channel NewsAsia
+                    <a href="https://www.channelnewsasia.com/podcasts/medishield-life-changes-how-save-medical-costs-medisave-money-talks-podcast-4701836" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </h3>
+                <p>Channel NewsAsia carried a Money Talks Podcast where Dr Cynthia Chen, assistant professor at the NUS Saw Swee Hock School of Public Health, discussed the recent changes to MediShield Life. Dr Chen explained that the changes will result in higher claims limits and outpatient coverage, providing greater financial protection. However, this comes at the cost of increased premiums, with an average increase of 22% and up to 35% for older individuals. In response to concerns about the increased premiums, Dr Chen advised that if individuals can afford to pay for treatments in cash, they should consider doing so to preserve their MediSave funds. Dr Chen emphasised that MediSave is meant to be a long-term savings plan, and using it more when younger means having less when older and in greater need of healthcare.</p>
+            </div>
+        </div>
+        
+        <!-- Certificate -->
+        <div class="certificate">
+            <h3>Project Management Job Simulation – Accenture (via Forage)</h3>
+            <a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/T6kdcdKSTfg2aotxT/tHFz7Bfjmh35DXQv6_T6kdcdKSTfg2aotxT_yENNnkmi64TZW3e98_1732003420330_completion_certificate.pdf" target="_blank" class="certificate-link">
+                <i class="fas fa-certificate"></i> View Certificate
+            </a>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <p>Feel free to reach out for collaborations or just to say hello!</p>
+            
+            <div class="contact-links">
+                <a href="mailto:ujwala26.uppalapati@gmail.com" class="contact-link" id="emailLink">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="tel:+919494901872" class="contact-link" id="phoneLink">
+                    <i class="fas fa-phone"></i> Phone
+                </a>
+                <a href="https://www.linkedin.com/in/ujwala-uppalapati-15b382245" target="_blank" class="contact-link" id="linkedinLink">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Uppalapati Ujwala Sri Lakshmi Prasanna. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Animation on Scroll
+        const animateOnScroll = () => {
+            const skillCards = document.querySelectorAll('.skill-card');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            skillCards.forEach(card => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (cardPosition < screenPosition) {
+                    card.classList.add('visible');
+                }
+            });
+            
+            timelineItems.forEach(item => {
+                const itemPosition = item.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (itemPosition < screenPosition) {
+                    item.classList.add('visible');
+                }
+            });
+            
+            projectCards.forEach(card => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (cardPosition < screenPosition) {
+                    card.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+        
+        // Hide contact info in HTML but keep functionality
+        document.getElementById('emailLink').addEventListener('click', function(e) {
+            window.location.href = 'mailto:ujwala26.uppalapati@gmail.com';
+            e.preventDefault();
+        });
+        
+        document.getElementById('phoneLink').addEventListener('click', function(e) {
+            window.location.href = 'tel:+919494901872';
+            e.preventDefault();
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
